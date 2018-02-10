@@ -1,0 +1,21 @@
+{
+    "name": "name-isp/dns",
+    "description": "WHMCS library",
+    "type": "library",
+    "require": {
+        "php": ">=5.5",
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andrey Smelov",
+            "email": "xor29a@bk.ru"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    }
+}
