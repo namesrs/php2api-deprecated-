@@ -1,10 +1,8 @@
 <?php
 namespace NameISP\Whmcs;
 
-use GuzzleHttp\ClientInterface;
 use NameISP\Whmcs\Exception as Exception;
 use NameISP\Whmcs\Request as Request;
-use Psr\Http\Message\ResponseInterface;
 
 class Client
 {
@@ -56,11 +54,41 @@ class Client
             $this->authManager->auth();
         }
 
+        try {
+            $result = $this->send($request);
+        } catch (Exception\ApiException $e) {
+            if ($e->getCode() != 2200) {
+                throw $e;
+            }
+
+            // Try to re-authorize
+            $this->authManager->auth();
+            $result = $this->send($request);
+        }
+
+        // TODO: store session expire time
+
+        // Clean unnecessarily fields
+        foreach (['code', 'desc', 'runtime', 'session'] as $field) {
+            unset($result[$field]);
+        }
+
+        return count($result) > 1 ? $result : current($result);
+    }
+
+    /**
+     * @param Request\AbstractRequest $request
+     * @return array
+     * @throws Exception\ApiException
+     * @throws Exception\InvalidApiResponseException
+     */
+    protected function send($request)
+    {
         $token = $this->authManager->getToken();
 
         $url = $request->getUrl().$token.'/';
 
-//        // TODO: try/catch
+        // TODO: try/catch
         $response = $this->client->request($request->getMethod(), $url, $request->getOptions());
 
         $result = $this->parseRequest($response);
@@ -75,15 +103,6 @@ class Client
             throw new Exception\ApiException($message, $result['code']);
         }
 
-        // TODO: check if token is invalid
-
-        // TODO: store session expire time
-
-        // Clean unnecessarily fields
-        foreach (['code', 'desc', 'runtime', 'session'] as $field) {
-            unset($result[$field]);
-        }
-
-        return count($result) > 1 ? $result : current($result);
+        return $result;
     }
 }
