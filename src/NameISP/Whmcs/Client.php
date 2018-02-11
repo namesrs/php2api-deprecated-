@@ -77,9 +77,13 @@ class Client
 
         // TODO: check if token is invalid
 
-        d($result);
+        // TODO: store session expire time
 
-        // TODO: return array
-        // TODO: throw exception if code isn't success
+        // Clean unnecessarily fields
+        foreach (['code', 'desc', 'runtime', 'session'] as $field) {
+            unset($result[$field]);
+        }
+
+        return count($result) > 1 ? $result : current($result);
     }
 }
