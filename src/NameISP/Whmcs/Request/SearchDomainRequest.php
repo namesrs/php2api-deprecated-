@@ -14,7 +14,9 @@ class SearchDomainRequest extends AbstractRequest
         }
 
         $this->options = [
-            'domainname' => array_values($domainName),
+            'form_params' => [
+                'domainname' => array_values($domainName)
+            ]
         ];
     }
 }
