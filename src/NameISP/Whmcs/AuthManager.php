@@ -1,13 +1,18 @@
 <?php
 namespace NameISP\Whmcs;
 
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\GuzzleException;
 use NameISP\Whmcs\Exception\AuthFailedException;
 use NameISP\Whmcs\Exception\InvalidApiResponseException;
+use NameISP\Whmcs\Exception\NetworkException;
 
 class AuthManager
 {
     use ParseRequestTrait;
 
+    /** @var ClientInterface */
+    protected $client;
     /** @var string */
     protected $apiKey;
     /** @var string|null */
@@ -21,13 +26,17 @@ class AuthManager
 
     /**
      * @throws AuthFailedException
+     * @throws NetworkException
      */
     public function auth()
     {
         $url = 'authenticate/login/'.$this->apiKey;
 
-        // TODO: try/catch
-        $response = $this->client->get($url);
+        try {
+            $response = $this->client->request('get', $url);
+        } catch (GuzzleException $e) {
+            throw new NetworkException($e->getMessage(), $e->getCode(), $e);
+        }
 
         try {
             $result = $this->parseRequest($response);

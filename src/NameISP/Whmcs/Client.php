@@ -1,6 +1,8 @@
 <?php
 namespace NameISP\Whmcs;
 
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\GuzzleException;
 use NameISP\Whmcs\Exception as Exception;
 use NameISP\Whmcs\Request as Request;
 
@@ -8,6 +10,8 @@ class Client
 {
     use ParseRequestTrait;
 
+    /** @var ClientInterface */
+    protected $client;
     /** @var AuthManager */
     protected $authManager;
 
@@ -37,6 +41,10 @@ class Client
     }
 
     /**
+     * @param string|null $domainName
+     * @param int $start
+     * @param int $limit
+     * @return array|mixed
      * @throws Exception\WhmcsException
      */
     public function domainList($domainName = null, $start = 0, $limit = 100)
@@ -45,6 +53,8 @@ class Client
     }
 
     /**
+     * @param Request\AbstractRequest $request
+     * @return array
      * @throws Exception\WhmcsException
      */
     protected function execute(Request\AbstractRequest $request)
@@ -81,6 +91,7 @@ class Client
      * @return array
      * @throws Exception\ApiException
      * @throws Exception\InvalidApiResponseException
+     * @throws Exception\NetworkException
      */
     protected function send($request)
     {
@@ -88,8 +99,11 @@ class Client
 
         $url = $request->getUrl().$token.'/';
 
-        // TODO: try/catch
-        $response = $this->client->request($request->getMethod(), $url, $request->getOptions());
+        try {
+            $response = $this->client->request($request->getMethod(), $url, $request->getOptions());
+        } catch (GuzzleException $e) {
+            throw new Exception\NetworkException($e->getMessage(), $e->getCode(), $e);
+        }
 
         $result = $this->parseRequest($response);
 

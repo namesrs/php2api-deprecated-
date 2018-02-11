@@ -5,8 +5,6 @@ use Psr\Http\Message\ResponseInterface;
 
 trait ParseRequestTrait
 {
-    protected $client;
-
     /**
      * Extract JSON from guzzle response
      *
