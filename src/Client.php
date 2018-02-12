@@ -33,7 +33,9 @@ class Client
     }
 
     /**
-     * @throws Exception\WhmcsException
+     * @param array|string $domainName
+     * @return array
+     * @throws Exception\BaseException
      */
     public function searchDomain($domainName)
     {
@@ -45,7 +47,7 @@ class Client
      * @param int $start
      * @param int $limit
      * @return array|mixed
-     * @throws Exception\WhmcsException
+     * @throws Exception\BaseException
      */
     public function domainList($domainName = null, $start = 0, $limit = 100)
     {
@@ -55,7 +57,7 @@ class Client
     /**
      * @param Request\AbstractRequest $request
      * @return array
-     * @throws Exception\WhmcsException
+     * @throws Exception\BaseException
      */
     protected function execute(Request\AbstractRequest $request)
     {

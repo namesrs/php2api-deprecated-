@@ -1,7 +1,7 @@
 <?php
 namespace NameISP\API3\Exception;
 
-class InvalidApiResponseException extends WhmcsException
+class InvalidApiResponseException extends BaseException
 {
 
 }
