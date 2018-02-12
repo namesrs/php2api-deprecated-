@@ -60,7 +60,7 @@ Any network exception. If you need more details, you could get original [Guzzle]
 
 
 ## Methods
-All methods return result as an array.
+All methods return an array as result.
 
 ### searchDomain
 ```php
