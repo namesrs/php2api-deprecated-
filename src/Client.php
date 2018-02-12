@@ -20,7 +20,7 @@ class Client
      * @param string $baseUrl
      * @param string $apiKey
      */
-    public function __construct($baseUrl, $apiKey)
+    public function __construct($apiKey, $baseUrl = 'https://api.domainname.systems')
     {
         $client = new \GuzzleHttp\Client([
                 'base_uri' => $baseUrl,
