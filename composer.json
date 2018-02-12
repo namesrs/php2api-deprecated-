@@ -1,6 +1,6 @@
 {
-    "name": "name-isp/dns",
-    "description": "WHMCS library",
+    "name": "nameisp/api3-lib",
+    "description": "WHMCS API v.3.0 client",
     "type": "library",
     "require": {
         "php": ">=5.5",
@@ -15,7 +15,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "": "src/"
+            "NameISP\\API3\\": "src/"
         }
     },
     "require-dev": {

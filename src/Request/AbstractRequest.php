@@ -1,5 +1,5 @@
 <?php
-namespace NameISP\Whmcs\Request;
+namespace NameISP\API3\Request;
 
 abstract class AbstractRequest
 {

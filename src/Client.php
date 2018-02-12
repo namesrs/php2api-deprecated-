@@ -1,10 +1,10 @@
 <?php
-namespace NameISP\Whmcs;
+namespace NameISP\API3;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
-use NameISP\Whmcs\Exception as Exception;
-use NameISP\Whmcs\Request as Request;
+use NameISP\API3\Exception as Exception;
+use NameISP\API3\Request as Request;
 
 class Client
 {

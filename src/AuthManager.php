@@ -1,11 +1,11 @@
 <?php
-namespace NameISP\Whmcs;
+namespace NameISP\API3;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
-use NameISP\Whmcs\Exception\AuthFailedException;
-use NameISP\Whmcs\Exception\InvalidApiResponseException;
-use NameISP\Whmcs\Exception\NetworkException;
+use NameISP\API3\Exception\AuthFailedException;
+use NameISP\API3\Exception\InvalidApiResponseException;
+use NameISP\API3\Exception\NetworkException;
 
 class AuthManager
 {

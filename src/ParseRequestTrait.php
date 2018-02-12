@@ -1,5 +1,5 @@
 <?php
-namespace NameISP\Whmcs;
+namespace NameISP\API3;
 
 use Psr\Http\Message\ResponseInterface;
 

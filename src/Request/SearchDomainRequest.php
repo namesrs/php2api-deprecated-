@@ -1,7 +1,6 @@
 <?php
-namespace NameISP\Whmcs\Request;
+namespace NameISP\API3\Request;
 
-// TODO: isn't working
 class SearchDomainRequest extends AbstractRequest
 {
     protected $method = 'post';
