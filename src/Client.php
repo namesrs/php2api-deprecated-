@@ -85,7 +85,8 @@ class Client
             unset($result[$field]);
         }
 
-        return count($result) > 1 ? $result : current($result);
+        // Return one field if we have exactly 1 key in the array
+        return (count($result) === 1) ? current($result) : $result;
     }
 
     /**
