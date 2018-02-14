@@ -85,8 +85,12 @@ class Client
             unset($result[$field]);
         }
 
-        // Return one field if we have exactly 1 key in the array
-        return (count($result) === 1) ? current($result) : $result;
+        // Return one field if we have exactly 1 key in the array or we have 'resulttotals' field
+        if (isset($result['resulttotals']) || count($result) !== 1) {
+            return $result;
+        } else {
+            return current($result);
+        }
     }
 
     /**
