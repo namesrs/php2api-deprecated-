@@ -136,7 +136,7 @@ public function editDomain($domainName, $setAutoRenew = null, $setShieldWhoIs = 
 ```
 Example:
 ```php
-$api->editDomain('example.com', false, null, ['label']);
+$api->editDomain('example.com', false, null, ['label']); // Returns an empty array on success
 ```
 
 ### searchDomain
@@ -167,3 +167,133 @@ public function updateDomainDNS($domainName, array $nameServer)
 public function updateDomainRenew($domainName, $itemYear)
 ```
 [Example](doc/updateDomainRenew.md)
+
+
+## DNS
+### checkDnsZone
+```php
+/**
+ * @param string $domainName
+ * @param string $nameServer
+ */
+public function checkDnsZone($domainName, $nameServer)
+```
+Example:
+```php
+$api->checkDnsZone('example.com', 'ns1.nameisp.info'); // Returns an empty array on success
+```
+
+### dnsAddRecord
+```php
+/**
+ * DnsAddRecord
+ *
+ * Notes:
+ * Using $type = redirect will create a redirect
+ *  - Valid values for $redirectType are 301, 302 & frame. Default: 301
+ *  - Forward url is to be entered in content ex. http://www.example.com
+ * Using $type = mailforward will create a mailforward
+ *  - Valid values for name is full qualified email address for the domainname
+ *  - Forward email is to be entered in content ex. example@example.com
+ *
+ * @param string $domainName
+ * @param string $name
+ * @param string $type
+ * @param string $content
+ * @param int $ttl
+ * @param int $prio
+ * @param string $redirectType
+ */
+public function dnsAddRecord($domainName, $name, $type, $content, $ttl, $prio = null, $redirectType = null)
+```
+[Example](doc/dnsAddRecord.md)
+
+### dnsDeleteRecord
+```php
+/**
+ * @param int $recordId
+ * @param string $domainName
+ */
+public function dnsDeleteRecord($recordId, $domainName)
+```
+Example:
+```php
+$api->dnsDeleteRecord(16992196,  'example.com'); // Returns an empty array on success
+```
+
+### dnsGetRecords
+```php
+/**
+ * @param string $domainName
+ */
+public function dnsGetRecords($domainName)
+```
+[Example](doc/dnsGetRecords.md)
+
+### dnsUpdateRecord
+```php
+/**
+ * DnsUpdateRecord
+ *
+ * Notes:
+ * Using type = redirect will create a redirect
+ *  - Valid values for redirecttype are 301, 302 & frame. Default: 301
+ *  - Forward url is to be entered in content ex. http://www.example.com
+ *
+ * @param int $recordId
+ * @param string $domainName
+ * @param string $name
+ * @param string $type
+ * @param string $content
+ * @param int $ttl
+ * @param int $prio
+ * @param string $redirectType
+ */
+public function dnsUpdateRecord($recordId, $domainName, $name, $type, $content, $ttl, $prio = null, $redirectType = null)
+```
+Example:
+```php
+$api->dnsUpdateRecord(16992196, 'example.com', '*.example.com', 'A', '1.1.1.2', 3600); // Returns an empty array on success
+```
+
+### publishDnsSec
+```php
+/**
+ * PublishDnsSec
+ *
+ * Notes:
+ * $flags
+ *  - 256 ZSK
+ *  - 257 KSK
+ * $alg can at the time of writing use one of the following integers:
+ *  - 5 RSA/SHA-1
+ *  - 7 RSASHA1-NSEC3-SHA1
+ *  - 8 RSA/SHA-256
+ *  - 10 RSA/SHA-512
+ *  - 12 GOST R 34.10-2001
+ *  - 13 ECDSA/SHA-256
+ *  - 14 ECDSA/SHA-384
+ *
+ * @param string $domainName
+ * @param string $dnsKey
+ * @param int $flags
+ * @param int $alg
+ */
+public function publishDnsSec($domainName, $dnsKey, $flags, $alg)
+```
+Example:
+```php
+$api->publishDnsSec('example.com', 'c6884357e49fd6b1fdede867c96aafb1', 256, 5); // Returns an empty array on success
+```
+
+### unpublishDnsSec
+```php
+/**
+ * @param string $domainName
+ */
+public function unpublishDnsSec($domainName)
+```
+Example:
+```php
+$api->unPublishDnsSec('example.com'); // Returns an empty array on success
+```
