@@ -60,6 +60,10 @@ Any network exception. If you need more details, you could get original [Guzzle]
 
 
 # Methods
+If some argument is null by default, it's optional, others are required.
+
+If you want to unset boolean flag, you should pass `false` (e.g. `$setAutoRenew` argument in the `editDomain` method)
+
 All methods return an array as result.
 
 ## Domains
