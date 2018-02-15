@@ -6,24 +6,30 @@ class UpdateContactRequest extends AbstractRequest
     protected $method = 'post';
     protected $url = 'contact/updatecontact/';
 
-    public function __construct($contactId, $firstName = null, $lastName = null, $organization = null, $address1 = null, $zipCode = null, $city = null, $countryCode = null, $phone = null, $fax = null, $email = null)
+    public function __construct($contactId, array $fields)
     {
-        $post = [
-            'contactid' => $contactId,
-            'firstname' => $firstName,
-            'lastname' => $lastName,
-            'organization' => $organization,
-            'address1' => $address1,
-            'zipcode' => $zipCode,
-            'city' => $city,
-            'countrycode' => $countryCode,
-            'phone' => $phone,
-            'fax' => $fax,
-            'email' => $email
+        $validFields = [
+            'firstname',
+            'lastname',
+            'organization',
+            'address1',
+            'zipcode',
+            'city',
+            'countrycode',
+            'phone',
+            'fax',
+            'email',
         ];
 
+        $post = array_merge(
+            [
+                'contactid' => $contactId
+            ],
+            array_intersect_key($fields, array_flip($validFields))
+        );
+
         $this->options = [
-            'form_params' => $this->filterEmpty($post)
+            'form_params' => $post,
         ];
     }
 }

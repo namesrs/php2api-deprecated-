@@ -6,24 +6,31 @@ class ContactListRequest extends AbstractRequest
     protected $method = 'get';
     protected $url = 'contact/contactlist/';
 
-    public function __construct($firstName = null, $lastName = null, $organization = null, $orgnr = null, $address1 = null, $zipCode = null, $city = null, $countryCode = null, $phone = null, $fax = null, $email = null, $limit = null, $start = null, $searchString = null)
+    public function __construct(array $filters = [], $searchString = null, $limit = null, $start = null)
     {
-        $query = [
-            'firstname' => $firstName,
-            'lastname' => $lastName,
-            'organization' => $organization,
-            'orgnr' => $orgnr,
-            'address1' => $address1,
-            'zipcode' => $zipCode,
-            'city' => $city,
-            'countrycode' => $countryCode,
-            'phone' => $phone,
-            'fax' => $fax,
-            'email' => $email,
-            'limit' => $limit,
-            'start' => $start,
-            'searchstring' => $searchString
+        $validFields = [
+            'firstname',
+            'lastname',
+            'organization',
+            'orgnr',
+            'address1',
+            'zipcode',
+            'city',
+            'countrycode',
+            'phone',
+            'fax',
+            'email'
         ];
+
+        $query = array_merge(
+            // Get only allowed columns from the $filters
+            array_intersect_key($filters, array_flip($validFields)),
+            [
+                'searchstring' => $searchString,
+                'limit' => $limit,
+                'start' => $start
+            ]
+        );
 
         $this->options = [
             'query' => $this->filterEmpty($query)

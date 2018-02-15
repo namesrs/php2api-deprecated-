@@ -140,26 +140,22 @@ class Client
     }
 
     /**
-     * @param string $firstName
-     * @param string $lastName
-     * @param string $organization
-     * @param string $orgnr
-     * @param string $address1
-     * @param string $zipCode
-     * @param string $city
-     * @param string $countryCode
-     * @param string $phone
-     * @param string $fax
-     * @param string $email
+     * ContactList
+     *
+     * Note:
+     * Valid $filters keys:
+     * firstname, lastname, organization, orgnr, address1, zipcode, city, countrycode, phone, fax, email
+     *
+     * @param array $filters key-value array with filters
      * @param int $limit default: 100, min: 1 max: 1000, invalid values are ignored and default value is used
      * @param int $start default: 0
      * @param string $searchString is a free text search parameter, use this parameter to search every field. If this parameter is used all other parameters are ignored.
      * @return array
      * @throws Exception\BaseException
      */
-    public function contactList($firstName = null, $lastName = null, $organization = null, $orgnr = null, $address1 = null, $zipCode = null, $city = null, $countryCode = null, $phone = null, $fax = null, $email = null, $limit = null, $start = null, $searchString = null)
+    public function contactList(array $filters = [], $searchString = null, $limit = null, $start = null)
     {
-        return $this->execute(new Request\ContactListRequest($firstName, $lastName, $organization, $orgnr, $address1, $zipCode, $city, $countryCode, $phone, $fax, $email, $limit, $start, $searchString));
+        return $this->execute(new Request\ContactListRequest($filters, $searchString, $limit, $start));
     }
 
     /**
@@ -191,23 +187,17 @@ class Client
      * No one can update orgnr
      * if value does not exist, value is added else it is updated
      *
+     * Possible $fields keys:
+     * firstname, lastname, organization, address1, zipcode, city, countrycode, phone, fax, email
+     *
      * @param int $contactId
-     * @param string $firstName
-     * @param string $lastName
-     * @param string $organization
-     * @param string $address1
-     * @param string $zipCode
-     * @param string $city
-     * @param string $countryCode
-     * @param string $phone
-     * @param string $fax
-     * @param string $email
+     * @param array $fields
      * @return array
      * @throws Exception\BaseException
      */
-    public function updateContact($contactId, $firstName = null, $lastName = null, $organization = null, $address1 = null, $zipCode = null, $city = null, $countryCode = null, $phone = null, $fax = null, $email = null)
+    public function updateContact($contactId, array $fields)
     {
-        return $this->execute(new Request\UpdateContactRequest($contactId, $firstName, $lastName, $organization, $address1, $zipCode, $city, $countryCode, $phone, $fax, $email));
+        return $this->execute(new Request\UpdateContactRequest($contactId, $fields));
     }
 
     /**
