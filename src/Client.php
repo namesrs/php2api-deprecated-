@@ -316,6 +316,7 @@ class Client
      * @param int $recordId
      * @param string $domainName
      * @param string $name
+     * @param string $type
      * @param string $content
      * @param int $ttl
      * @param int $prio
@@ -323,9 +324,9 @@ class Client
      * @return array
      * @throws Exception\BaseException
      */
-    public function dnsUpdateRecord($recordId, $domainName, $name, $content, $ttl, $prio = null, $redirectType = null)
+    public function dnsUpdateRecord($recordId, $domainName, $name, $type, $content, $ttl, $prio = null, $redirectType = null)
     {
-        return $this->execute(new Request\DnsUpdateRecordRequest($recordId, $domainName, $name, $content, $ttl, $prio, $redirectType));
+        return $this->execute(new Request\DnsUpdateRecordRequest($recordId, $domainName, $name, $type, $content, $ttl, $prio, $redirectType));
     }
 
     /**
@@ -383,9 +384,9 @@ class Client
      * @return array
      * @throws Exception\BaseException
      */
-    public function unPublishDnsSec($domainName)
+    public function unpublishDnsSec($domainName)
     {
-        return $this->execute(new Request\UnPublishDnsSecRequest($domainName));
+        return $this->execute(new Request\UnpublishDnsSecRequest($domainName));
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
 namespace NameISP\API3\Request;
 
-class UnPublishDnsSecRequest extends AbstractRequest
+class UnpublishDnsSecRequest extends AbstractRequest
 {
     protected $method = 'post';
     protected $url = 'dns/unpublishdnssec/';

@@ -12,6 +12,7 @@ class DnsUpdateRecordRequest extends AbstractRequest
             'recordid' => $recordId,
             'domainname' => $domainName,
             'name' => $name,
+            'type' => $type,
             'content' => $content,
             'ttl' => $ttl,
             'prio' => $prio,
