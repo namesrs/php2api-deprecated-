@@ -1,7 +1,6 @@
 ```php
-// Example:
 $api->domainGenAuthCode('example.com');
-// Output:
+// Result:
 array (2) [
     'invalidnameservers' => array (2) [
         0 => string (16) "ns1.nameisp.info"

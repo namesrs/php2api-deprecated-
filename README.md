@@ -59,8 +59,81 @@ This exception throws when authorization was failed with your API token.
 Any network exception. If you need more details, you could get original [Guzzle](http://docs.guzzlephp.org/en/latest/index.html) exception by using `$e->getPrevious();`
 
 
-## Methods
+# Methods
 All methods return an array as result.
+
+## Domains
+### createDomainRegistration
+```php
+/**
+ * @param string $domainName must be fully qualified domain name
+ * @param int $itemYear
+ * @param int $ownerId
+ * @param int $adminId
+ * @param int $techId
+ * @param bool $autoRenew
+ * @param bool $shieldWhoIs
+ * @param bool $trustee
+ * @param bool $tmchacceptance is only required if the domain name has a claim. If there is no claim this parameter is ignored.
+ */
+public function createDomainRegistration($domainName, $itemYear, $ownerId, $adminId = null, $techId = null, $autoRenew = null, $shieldWhoIs = null, $trustee = null, $tmchacceptance = null)
+```
+[Example](doc/createDomainRegistration.md)
+
+### createDomainTransfer
+```php
+/**
+ * @param string $domainName must be fully qualified domain name
+ * @param string $auth
+ */
+public function createDomainTransfer($domainName, $auth = false)
+```
+[Example](doc/createDomainTransfer.md)
+
+### domainDetails
+```php
+/**
+ * @param int $itemid
+ */
+public function domainDetails($itemid)
+```
+[Example](doc/domainDetails.md)
+
+### domainGenAuthCode
+```php
+/**
+ * @param string $domainName
+ */
+public function domainGenAuthCode($domainName)
+```
+[Example](doc/domainGenAuthCode.md)
+
+### domainList
+```php
+/**
+ * @param string $domainName
+ * @param int $start default: 0
+ * @param int $limit default: 100, min: 1 max: 1000, invalid values are ignored and default value is used
+ */
+public function domainList($domainName = null, $start = null, $limit = null)
+```
+[Example](doc/domainList.md)
+
+### editDomain
+```php
+/**
+ * @param array|string $domainName must be fully qualified domain name
+ * @param bool $setAutoRenew
+ * @param bool $setShieldWhoIs
+ * @param array $addLabel
+ * @param array $removeLabel
+ */
+public function editDomain($domainName, $setAutoRenew = null, $setShieldWhoIs = null, array $addLabel = null, array $removeLabel = null)
+```
+Example:
+```php
+$api->editDomain('example.com', false, null, ['label']);
+```
 
 ### searchDomain
 ```php
@@ -68,55 +141,25 @@ All methods return an array as result.
  * @param array|string $domainName
  */
 public function searchDomain($domainName)
-    
-// Example output:
-array (2) [
-    'example.org' => array (2) [
-        'status' => string (11) "unavailable"
-        'tld' => string (3) "org"
-    ]
-    'asdadasdadasdad.com' => array (2) [
-        'status' => string (9) "available"
-        'tld' => string (3) "com"
-    ]
-]
 ```
+[Example](doc/searchDomain.md)
 
-### domainList
+### updateDomainDNS
 ```php
 /**
- * @param string|null $domainName
- * @param int $start
- * @param int $limit
+ * @param string $domainName must be fully qualified domain name
+ * @param array $nameServer
  */
-public function domainList($domainName = null, $start = 0, $limit = 100)
-
-// Example output:
-array (1) [
-    'unfiltered' => array (6) [
-        'active' => array (2) [
-            'statusid' => string (3) "200"
-            'value' => integer 0
-        ]
-        'transferaway' => array (2) [
-            'statusid' => string (3) "300"
-            'value' => integer 0
-        ]
-        'inactive' => array (2) [
-            'statusid' => string (3) "400"
-            'value' => integer 0
-        ]
-        'expired' => array (2) [
-            'statusid' => string (3) "500"
-            'value' => integer 0
-        ]
-        'archive' => array (2) [
-            'statusid' => string (5) "10000"
-            'value' => integer 0
-        ]
-        'total' => array (1) [
-            'value' => integer 0
-        ]
-    ]
-]
+public function updateDomainDNS($domainName, array $nameServer)
 ```
+[Example](doc/updateDomainDNS.md)
+
+### updateDomainRenew
+```php
+/**
+ * @param string $domainName must be fully qualified domain name
+ * @param int $itemYear
+ */
+public function updateDomainRenew($domainName, $itemYear)
+```
+[Example](doc/updateDomainRenew.md)
