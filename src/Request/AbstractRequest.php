@@ -30,4 +30,11 @@ abstract class AbstractRequest
     {
         return $this->options;
     }
+
+    public function filterEmpty(array $arr)
+    {
+        return array_filter($arr, function ($value) {
+            return $value !== null;
+        });
+    }
 }

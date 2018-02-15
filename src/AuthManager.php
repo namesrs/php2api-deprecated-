@@ -18,7 +18,7 @@ class AuthManager
     /** @var string|null */
     protected $token = null;
 
-    public function __construct($apiKey, $client)
+    public function __construct($apiKey, ClientInterface $client)
     {
         $this->apiKey = $apiKey;
         $this->client = $client;

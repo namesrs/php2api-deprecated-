@@ -43,15 +43,406 @@ class Client
     }
 
     /**
-     * @param string|null $domainName
-     * @param int $start
-     * @param int $limit
-     * @return array|mixed
+     * @param string $domainName
+     * @param int $start default: 0
+     * @param int $limit default: 100, min: 1 max: 1000, invalid values are ignored and default value is used
+     * @return array
      * @throws Exception\BaseException
      */
-    public function domainList($domainName = null, $start = 0, $limit = 100)
+    public function domainList($domainName = null, $start = null, $limit = null)
     {
         return $this->execute(new Request\DomainListRequest($domainName, $start, $limit));
+    }
+
+    /**
+     * @param int $itemid
+     * @return array
+     * @throws Exception\BaseException
+     */
+    public function domainDetails($itemid)
+    {
+        return $this->execute(new Request\DomainDetailsRequest($itemid));
+    }
+
+    /**
+     * @param array|string $domainName must be fully qualified domain name
+     * @param bool $setAutoRenew
+     * @param bool $setShieldWhoIs
+     * @param array $addLabel
+     * @param array $removeLabel
+     * @return array
+     * @throws Exception\BaseException
+     */
+    public function editDomain($domainName, $setAutoRenew = null, $setShieldWhoIs = null, array $addLabel = null, array $removeLabel = null)
+    {
+        return $this->execute(new Request\EditDomainRequest($domainName, $setAutoRenew, $setShieldWhoIs, $addLabel, $removeLabel));
+    }
+
+    /**
+     * @param string $domainName must be fully qualified domain name
+     * @param int $itemYear
+     * @param int $ownerId
+     * @param int $adminId
+     * @param int $techId
+     * @param bool $autoRenew
+     * @param bool $shieldWhoIs
+     * @param bool $trustee
+     * @param bool $tmchacceptance is only required if the domain name has a claim. If there is no claim this parameter is ignored.
+     * @return array
+     * @throws Exception\BaseException
+     */
+    public function createDomainRegistration($domainName, $itemYear, $ownerId, $adminId = null, $techId = null, $autoRenew = null, $shieldWhoIs = null, $trustee = null, $tmchacceptance = null)
+    {
+        return $this->execute(new Request\CreateDomainRegistrationRequest($domainName, $itemYear, $ownerId, $adminId, $techId, $autoRenew, $shieldWhoIs, $trustee, $tmchacceptance));
+    }
+
+    /**
+     * @param string $domainName must be fully qualified domain name
+     * @param int $itemYear
+     * @return array
+     * @throws Exception\BaseException
+     */
+    public function updateDomainRenew($domainName, $itemYear)
+    {
+        return $this->execute(new Request\updateDomainRenewRequest($domainName, $itemYear));
+    }
+
+    /**
+     * @param string $domainName must be fully qualified domain name
+     * @param array $nameServer
+     * @return array
+     * @throws Exception\BaseException
+     */
+    public function updateDomainDNS($domainName, array $nameServer)
+    {
+        return $this->execute(new Request\UpdateDomainDNSRequest($domainName, $nameServer));
+    }
+
+    /**
+     * @param string $domainName must be fully qualified domain name
+     * @param string $auth
+     * @return array
+     * @throws Exception\BaseException
+     */
+    public function createDomainTransfer($domainName, $auth = false)
+    {
+        return $this->execute(new Request\CreateDomainTransferRequest($domainName, $auth));
+    }
+
+    /**
+     * @param string $domainName
+     * @return array
+     * @throws Exception\BaseException
+     */
+    public function domainGenAuthCode($domainName)
+    {
+        return $this->execute(new Request\DomainGenAuthCodeRequest($domainName));
+    }
+
+    /**
+     * @param string $firstName
+     * @param string $lastName
+     * @param string $organization
+     * @param string $orgnr
+     * @param string $address1
+     * @param string $zipCode
+     * @param string $city
+     * @param string $countryCode
+     * @param string $phone
+     * @param string $fax
+     * @param string $email
+     * @param int $limit default: 100, min: 1 max: 1000, invalid values are ignored and default value is used
+     * @param int $start default: 0
+     * @param string $searchString is a free text search parameter, use this parameter to search every field. If this parameter is used all other parameters are ignored.
+     * @return array
+     * @throws Exception\BaseException
+     */
+    public function contactList($firstName = null, $lastName = null, $organization = null, $orgnr = null, $address1 = null, $zipCode = null, $city = null, $countryCode = null, $phone = null, $fax = null, $email = null, $limit = null, $start = null, $searchString = null)
+    {
+        return $this->execute(new Request\ContactListRequest($firstName, $lastName, $organization, $orgnr, $address1, $zipCode, $city, $countryCode, $phone, $fax, $email, $limit, $start, $searchString));
+    }
+
+    /**
+     * @param string $firstName
+     * @param string $lastName
+     * @param string $email
+     * @param string $orgnr
+     * @param string $address1
+     * @param string $zipCode
+     * @param string $city
+     * @param string $countryCode
+     * @param string $phone
+     * @param string $organization
+     * @param string $fax
+     * @return array
+     * @throws Exception\BaseException
+     */
+    public function createContact($firstName, $lastName, $email, $orgnr, $address1, $zipCode, $city, $countryCode, $phone, $organization = null, $fax = null)
+    {
+        return $this->execute(new Request\CreateContactRequest($firstName, $lastName, $email, $orgnr, $address1, $zipCode, $city, $countryCode, $phone, $organization, $fax));
+    }
+
+    /**
+     * UpdateContact
+     *
+     * Notes:
+     * Private persons can’t update $firstName or $lastName
+     * Organization can’t update $organization
+     * No one can update orgnr
+     * if value does not exist, value is added else it is updated
+     *
+     * @param int $contactId
+     * @param string $firstName
+     * @param string $lastName
+     * @param string $organization
+     * @param string $address1
+     * @param string $zipCode
+     * @param string $city
+     * @param string $countryCode
+     * @param string $phone
+     * @param string $fax
+     * @param string $email
+     * @return array
+     * @throws Exception\BaseException
+     */
+    public function updateContact($contactId, $firstName = null, $lastName = null, $organization = null, $address1 = null, $zipCode = null, $city = null, $countryCode = null, $phone = null, $fax = null, $email = null)
+    {
+        return $this->execute(new Request\UpdateContactRequest($contactId, $firstName, $lastName, $organization, $address1, $zipCode, $city, $countryCode, $phone, $fax, $email));
+    }
+
+    /**
+     * @param string $domainName
+     * @param string $reqType
+     * @param int $limit default: 100, min: 1 max: 1000, invalid values are ignored and default value is used
+     * @param int $start default: 0
+     * @return array
+     * @throws Exception\BaseException
+     */
+    public function requestList($domainName = null, $reqType = null, $limit = null, $start = null)
+    {
+        return $this->execute(new Request\RequestListRequest($domainName, $reqType, $limit, $start));
+    }
+
+    /**
+     * @param int $reqId
+     * @return array
+     * @throws Exception\BaseException
+     */
+    public function requestDetails($reqId)
+    {
+        return $this->execute(new Request\RequestDetailsRequest($reqId));
+    }
+
+    /**
+     * @param int $reqId
+     * @param string $error <parameter from error list>
+     * @return array
+     * @throws Exception\BaseException
+     */
+    public function requestUpdate($reqId, $error)
+    {
+        return $this->execute(new Request\RequestUpdateRequest($reqId, $error));
+    }
+
+    /**
+     * RequestCancellation
+     *
+     * Note:
+     * Only statuses with cancelable flag are cancelable.
+     *
+     * @param int $reqId
+     * @return array
+     * @throws Exception\BaseException
+     */
+    public function requestCancellation($reqId)
+    {
+        return $this->execute(new Request\RequestCancellationRequest($reqId));
+    }
+
+    /**
+     * EconomyPriceList
+     *
+     * Note:
+     * Using $print will ignore $limit and $start parameters, WARNING using $print = 1 will result with a large JSON object, it’s recommended to use $print = 1 together with $skipRules = 1 to limit the JSON size.
+     *
+     * @param bool $print
+     * @param int $skipRules
+     * @param string $tldName
+     * @param int $priceTypes
+     * @param int $limit
+     * @param int $start
+     * @return array
+     * @throws Exception\BaseException
+     */
+    public function economyPriceList($print = null, $skipRules = null, $tldName = null, $priceTypes = null, $limit = null, $start = null)
+    {
+        return $this->execute(new Request\EconomyPriceListRequest($print, $skipRules, $tldName, $priceTypes, $limit, $start));
+    }
+
+    /**
+     * @param string $domainName
+     * @return array
+     * @throws Exception\BaseException
+     */
+    public function dnsGetRecords($domainName)
+    {
+        return $this->execute(new Request\DnsGetRecordsRequest($domainName));
+    }
+
+    /**
+     * DnsAddRecord
+     *
+     * Notes:
+     * Using $type = redirect will create a redirect
+     *  - Valid values for $redirectType are 301, 302 & frame. Default: 301
+     *  - Forward url is to be entered in content ex. http://www.example.com
+     * Using $type = mailforward will create a mailforward
+     *  - Valid values for name is full qualified email address for the domainname
+     *  - Forward email is to be entered in content ex. example@example.com
+     *
+     * @param string $domainName
+     * @param string $name
+     * @param string $type
+     * @param string $content
+     * @param int $ttl
+     * @param int $prio
+     * @param string $redirectType
+     * @return array
+     * @throws Exception\BaseException
+     */
+    public function dnsAddRecord($domainName, $name, $type, $content, $ttl, $prio = null, $redirectType = null)
+    {
+        return $this->execute(new Request\DnsAddRecordRequest($domainName, $name, $type, $content, $ttl, $prio, $redirectType));
+    }
+
+    /**
+     * DnsUpdateRecord
+     *
+     * Notes:
+     * Using type = redirect will create a redirect
+     *  - Valid values for redirecttype are 301, 302 & frame. Default: 301
+     *  - Forward url is to be entered in content ex. http://www.example.com
+     *
+     * @param int $recordId
+     * @param string $domainName
+     * @param string $name
+     * @param string $content
+     * @param int $ttl
+     * @param int $prio
+     * @param string $redirectType
+     * @return array
+     * @throws Exception\BaseException
+     */
+    public function dnsUpdateRecord($recordId, $domainName, $name, $content, $ttl, $prio = null, $redirectType = null)
+    {
+        return $this->execute(new Request\DnsUpdateRecordRequest($recordId, $domainName, $name, $content, $ttl, $prio, $redirectType));
+    }
+
+    /**
+     * @param int $recordId
+     * @param string $domainName
+     * @return array
+     * @throws Exception\BaseException
+     */
+    public function dnsDeleteRecord($recordId, $domainName)
+    {
+        return $this->execute(new Request\DnsDeleteRecordRequest($recordId, $domainName));
+    }
+
+    /**
+     * @param string $domainName
+     * @param string $nameServer
+     * @return array
+     * @throws Exception\BaseException
+     */
+    public function checkDnsZone($domainName, $nameServer)
+    {
+        return $this->execute(new Request\CheckDnsZoneRequest($domainName, $nameServer));
+    }
+
+    /**
+     * PublishDnsSec
+     *
+     * Notes:
+     * $flags
+     *  - 256 ZSK
+     *  - 257 KSK
+     * $alg can at the time of writing use one of the following integers:
+     *  - 5 RSA/SHA-1
+     *  - 7 RSASHA1-NSEC3-SHA1
+     *  - 8 RSA/SHA-256
+     *  - 10 RSA/SHA-512
+     *  - 12 GOST R 34.10-2001
+     *  - 13 ECDSA/SHA-256
+     *  - 14 ECDSA/SHA-384
+     *
+     * @param string $domainName
+     * @param string $dnsKey
+     * @param int $flags
+     * @param int $alg
+     * @return array
+     * @throws Exception\BaseException
+     */
+    public function publishDnsSec($domainName, $dnsKey, $flags, $alg)
+    {
+        return $this->execute(new Request\PublishDnsSecRequest($domainName, $dnsKey, $flags, $alg));
+    }
+
+    /**
+     * @param string $domainName
+     * @return array
+     * @throws Exception\BaseException
+     */
+    public function unPublishDnsSec($domainName)
+    {
+        return $this->execute(new Request\UnPublishDnsSecRequest($domainName));
+    }
+
+    /**
+     * @return array
+     * @throws Exception\BaseException
+     */
+    public function getLabels()
+    {
+        return $this->execute(new Request\GetLabelsRequest());
+    }
+
+    /**
+     * @param string $label
+     * @param integer $starred
+     * @return array
+     * @throws Exception\BaseException
+     */
+    public function createLabel($label, $starred = null)
+    {
+        return $this->execute(new Request\CreateLabelRequest($label, $starred));
+    }
+
+    /**
+     * @param int $labelId
+     * @return array
+     * @throws Exception\BaseException
+     */
+    public function deleteLabel($labelId)
+    {
+        return $this->execute(new Request\DeleteLabelRequest($labelId));
+    }
+
+    /**
+     * UpdateLabel
+     *
+     * Note:
+     * Valid parameter values are name, starred
+     *
+     * @param int $labelId
+     * @param string $parameter
+     * @param string $value
+     * @return array
+     * @throws Exception\BaseException
+     */
+    public function updateLabel($labelId, $parameter, $value)
+    {
+        return $this->execute(new Request\UpdateLabelRequest($labelId, $parameter, $value));
     }
 
     /**
