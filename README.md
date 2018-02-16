@@ -1,5 +1,47 @@
 # API v.3.0 client
 
+**Table of Contents**
+
+* [Installation](#installation)
+* [Usage](#usage)
+* [Error handling](#error-handling)
+* [Methods](#methods)
+  * [Domains](#domains)
+     * [createDomainRegistration](#createdomainregistration)
+     * [createDomainTransfer](#createdomaintransfer)
+     * [domainDetails](#domaindetails)
+     * [domainGenAuthCode](#domaingenauthcode)
+     * [domainList](#domainlist)
+     * [editDomain](#editdomain)
+     * [searchDomain](#searchdomain)
+     * [updateDomainDNS](#updatedomaindns)
+     * [updateDomainRenew](#updatedomainrenew)
+  * [DNS](#dns)
+     * [checkDnsZone](#checkdnszone)
+     * [dnsAddRecord](#dnsaddrecord)
+     * [dnsDeleteRecord](#dnsdeleterecord)
+     * [dnsGetRecords](#dnsgetrecords)
+     * [dnsUpdateRecord](#dnsupdaterecord)
+     * [publishDnsSec](#publishdnssec)
+     * [unpublishDnsSec](#unpublishdnssec)
+  * [Economy](#economy)
+     * [economyPriceList](#economypricelist)
+  * [Miscellaneous](#miscellaneous)
+     * [createLabel](#createlabel)
+     * [deleteLabel](#deletelabel)
+     * [getLabels](#getlabels)
+     * [updateLabel](#updatelabel)
+  * [Request](#request)
+     * [requestCancellation](#requestcancellation)
+     * [requestDetails](#requestdetails)
+     * [requestList](#requestlist)
+     * [requestUpdate](#requestupdate)
+  * [Contacts](#contacts)
+     * [contactList](#contactlist)
+     * [createContact](#createcontact)
+     * [updateContact](#updatecontact)
+
+
 ### Installation
 You need [composer](https://getcomposer.org/) to install this library.
 ```bash
