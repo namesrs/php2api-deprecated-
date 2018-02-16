@@ -44,14 +44,14 @@ class Client
 
     /**
      * @param string $domainName
-     * @param int $start default: 0
      * @param int $limit default: 100, min: 1 max: 1000, invalid values are ignored and default value is used
+     * @param int $start default: 0
      * @return array
      * @throws Exception\BaseException
      */
-    public function domainList($domainName = null, $start = null, $limit = null)
+    public function domainList($domainName = null, $limit = null, $start = null)
     {
-        return $this->execute(new Request\DomainListRequest($domainName, $start, $limit));
+        return $this->execute(new Request\DomainListRequest($domainName, $limit, $start));
     }
 
     /**

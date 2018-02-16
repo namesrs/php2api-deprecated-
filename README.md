@@ -158,10 +158,10 @@ public function domainGenAuthCode($domainName)
 ```php
 /**
  * @param string $domainName
- * @param int $start default: 0
  * @param int $limit default: 100, min: 1 max: 1000, invalid values are ignored and default value is used
+ * @param int $start default: 0
  */
-public function domainList($domainName = null, $start = null, $limit = null)
+public function domainList($domainName = null, $limit = null, $start = null)
 ```
 [Example](doc/domainList.md)
 
