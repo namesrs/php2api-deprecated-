@@ -250,13 +250,13 @@ class Client
     }
 
     /**
-     * EconomyPriceList
+     * PriceList
      *
      * Note:
      * Using $print will ignore $limit and $start parameters, WARNING using $print = 1 will result with a large JSON object, it’s recommended to use $print = 1 together with $skipRules = 1 to limit the JSON size.
      *
      * @param bool $print
-     * @param int $skipRules
+     * @param bool $skipRules
      * @param string $tldName
      * @param int $priceTypes
      * @param int $limit
@@ -264,9 +264,9 @@ class Client
      * @return array
      * @throws Exception\BaseException
      */
-    public function economyPriceList($print = null, $skipRules = null, $tldName = null, $priceTypes = null, $limit = null, $start = null)
+    public function priceList($print = null, $skipRules = null, $tldName = null, $priceTypes = null, $limit = null, $start = null)
     {
-        return $this->execute(new Request\EconomyPriceListRequest($print, $skipRules, $tldName, $priceTypes, $limit, $start));
+        return $this->execute(new Request\PriceListRequest($print, $skipRules, $tldName, $priceTypes, $limit, $start));
     }
 
     /**

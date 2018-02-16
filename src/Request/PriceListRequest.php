@@ -1,7 +1,7 @@
 <?php
 namespace NameISP\API3\Request;
 
-class EconomyPriceListRequest extends AbstractRequest
+class PriceListRequest extends AbstractRequest
 {
     protected $method = 'get';
     protected $url = 'economy/pricelist/';
@@ -10,7 +10,7 @@ class EconomyPriceListRequest extends AbstractRequest
     {
         $query = [
             'print' => ($print !== null) ? (int)$print : null,
-            'skiprules' => $skipRules,
+            'skiprules' => ($skipRules !== null) ? (int)$skipRules : null,
             'tldname' => $tldName,
             'pricetypes' => $priceTypes,
             'limit' => $limit,
