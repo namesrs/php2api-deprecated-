@@ -411,3 +411,69 @@ public function requestList($domainName = null, $reqType = null, $limit = null, 
 public function requestUpdate($reqId, $error)
 ```
 TODO: example
+
+
+## Contacts
+### contactList
+```php
+/**
+ * ContactList
+ *
+ * Note:
+ * Valid $filters keys:
+ * firstname, lastname, organization, orgnr, address1, zipcode, city, countrycode, phone, fax, email
+ *
+ * @param array $filters key-value array with filters
+ * @param int $limit default: 100, min: 1 max: 1000, invalid values are ignored and default value is used
+ * @param int $start default: 0
+ * @param string $searchString is a free text search parameter, use this parameter to search every field. If this parameter is used all other parameters are ignored
+ */
+public function contactList(array $filters = [], $searchString = null, $limit = null, $start = null)
+```
+[Example](doc/contactList.md)
+
+### createContact
+```php
+/**
+ * @param string $firstName
+ * @param string $lastName
+ * @param string $email
+ * @param string $orgnr
+ * @param string $address1
+ * @param string $zipCode
+ * @param string $city
+ * @param string $countryCode
+ * @param string $phone
+ * @param string $organization
+ * @param string $fax
+ */
+public function createContact($firstName, $lastName, $email, $orgnr, $address1, $zipCode, $city, $countryCode, $phone, $organization = null, $fax = null)
+```
+[Example](doc/createContact.md)
+
+### updateContact
+```php
+/**
+ * UpdateContact
+ *
+ * Notes:
+ * Private persons can’t update $firstName or $lastName
+ * Organization can’t update $organization
+ * No one can update orgnr
+ * if value does not exist, value is added else it is updated
+ *
+ * Possible $fields keys:
+ * firstname, lastname, organization, address1, zipcode, city, countrycode, phone, fax, email
+ *
+ * @param int $contactId
+ * @param array $fields
+ */
+public function updateContact($contactId, array $fields)
+```
+Example:
+```php
+$api->updateContact(1234181, [
+    'city' => 'New York',
+    'countrycode' => 'us'
+]); // Returns an empty array on success
+```
