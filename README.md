@@ -25,7 +25,7 @@
      * [publishDnsSec](#publishdnssec)
      * [unpublishDnsSec](#unpublishdnssec)
   * [Economy](#economy)
-     * [economyPriceList](#economypricelist)
+     * [priceList](#pricelist)
   * [Miscellaneous](#miscellaneous)
      * [createLabel](#createlabel)
      * [deleteLabel](#deletelabel)
@@ -341,7 +341,7 @@ $api->unPublishDnsSec('example.com'); // Returns an empty array on success
 ```
 
 ## Economy
-### economyPriceList
+### priceList
 ```php
 /**
  * PriceList
