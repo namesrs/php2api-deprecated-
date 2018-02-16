@@ -365,3 +365,49 @@ Example:
 ```php
 $api->updateLabel(2317, 'name', 'updated label 1'); // Returns an empty array on success
 ```
+
+## Request
+### requestCancellation
+```php
+/**
+ * RequestCancellation
+ *
+ * Note:
+ * Only statuses with cancelable flag are cancelable.
+ *
+ * @param int $reqId
+ */
+public function requestCancellation($reqId)
+```
+TODO: example
+
+### requestDetails
+```php
+/**
+ * @param int $reqId
+ */
+public function requestDetails($reqId)
+```
+[Example](doc/requestDetails.md)
+
+### requestList
+```php
+/**
+ * @param string $domainName
+ * @param string $reqType
+ * @param int $limit default: 100, min: 1 max: 1000, invalid values are ignored and default value is used
+ * @param int $start default: 0
+ */
+public function requestList($domainName = null, $reqType = null, $limit = null, $start = null)
+```
+[Example](doc/requestList.md)
+
+### requestUpdate
+```php
+/**
+ * @param int $reqId
+ * @param string $error parameter from error list
+ */
+public function requestUpdate($reqId, $error)
+```
+TODO: example
