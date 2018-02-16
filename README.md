@@ -297,3 +297,71 @@ Example:
 ```php
 $api->unPublishDnsSec('example.com'); // Returns an empty array on success
 ```
+
+## Economy
+### economyPriceList
+```php
+/**
+ * PriceList
+ *
+ * Note:
+ * Using $print will ignore $limit and $start parameters, WARNING using $print = true will result with a large JSON object, it’s recommended to use $print = true together with $skipRules = true to limit the JSON size.
+ *
+ * @param bool $print
+ * @param bool $skipRules
+ * @param string $tldName
+ * @param int $priceTypes
+ * @param int $limit
+ * @param int $start
+ */
+public function priceList($print = null, $skipRules = null, $tldName = null, $priceTypes = null, $limit = null, $start = null)
+```
+[Example](doc/priceList.md)
+
+## Miscellaneous
+### createLabel
+```php
+/**
+ * @param string $label
+ * @param integer $starred
+ */
+public function createLabel($label, $starred = null)
+```
+[Example](doc/createLabel.md)
+
+### deleteLabel
+```php
+/**
+ * @param int $labelId
+ */
+public function deleteLabel($labelId)
+```
+Example:
+```php
+$api->deleteLabel(2317); // Returns an empty array on success
+```
+
+### getLabels
+```php
+public function getLabels()
+```
+[Example](doc/getLabels.md)
+
+### updateLabel
+```php
+/**
+ * UpdateLabel
+ *
+ * Note:
+ * Valid parameter values are: name, starred
+ *
+ * @param int $labelId
+ * @param string $parameter
+ * @param string $value
+ */
+public function updateLabel($labelId, $parameter, $value)
+```
+Example:
+```php
+$api->updateLabel(2317, 'name', 'updated label 1'); // Returns an empty array on success
+```
