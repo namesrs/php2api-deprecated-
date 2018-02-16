@@ -106,7 +106,7 @@ If some argument is null by default, it's optional, others are required.
 
 If you want to unset boolean flag, you should pass `false` (e.g. `$setAutoRenew` argument in the `editDomain` method)
 
-All methods return an array as result.
+Almost all methods return an array as result. Some returns string. The [checkDnsZone](#checkdnszone) method returns boolean.
 
 ## Domains
 ### createDomainRegistration
@@ -222,7 +222,7 @@ public function checkDnsZone($domainName, $nameServer)
 ```
 Example:
 ```php
-$api->checkDnsZone('example.com', 'ns1.nameisp.info'); // Returns an empty array on success
+$api->checkDnsZone('example.com', 'ns1.nameisp.info'); // Returns true or false
 ```
 
 ### dnsAddRecord

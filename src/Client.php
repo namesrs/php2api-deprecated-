@@ -343,12 +343,21 @@ class Client
     /**
      * @param string $domainName
      * @param string $nameServer
-     * @return array
+     * @return bool
      * @throws Exception\BaseException
      */
     public function checkDnsZone($domainName, $nameServer)
     {
-        return $this->execute(new Request\CheckDnsZoneRequest($domainName, $nameServer));
+        try {
+            $this->execute(new Request\CheckDnsZoneRequest($domainName, $nameServer));
+            return true;
+        } catch (Exception\ApiException $e) {
+            if ($e->getCode() == 2303) {
+                return false;
+            }
+
+            throw $e;
+        }
     }
 
     /**
