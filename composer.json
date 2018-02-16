@@ -1,6 +1,6 @@
 {
     "name": "nameisp/api3-lib",
-    "description": "WHMCS API v.3.0 client",
+    "description": "API v.3.0 client",
     "type": "library",
     "require": {
         "php": ">=5.5",

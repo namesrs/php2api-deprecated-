@@ -1,4 +1,4 @@
-# WHMCS API v.3.0 client
+# API v.3.0 client
 
 ### Installation
 You need [composer](https://getcomposer.org/) to install this library.
