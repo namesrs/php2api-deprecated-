@@ -6,7 +6,7 @@ class DomainListRequest extends AbstractRequest
     protected $method = 'get';
     protected $url = 'domain/domainlist/';
 
-    public function __construct($domainName = null, $start = null, $limit = null)
+    public function __construct($domainName = null, $limit = null, $start = null)
     {
         $query = [
             'domainname' => $domainName,
