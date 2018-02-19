@@ -421,7 +421,7 @@ $api->updateLabel(2317, 'name', 'updated label 1'); // Returns an empty array on
  */
 public function requestCancellation($reqId)
 ```
-TODO: example
+[Example](doc/requestCancellation.md)
 
 ### requestDetails
 ```php
